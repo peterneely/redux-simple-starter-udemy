@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
 
 class PostsNew extends Component {
   render() {
@@ -9,28 +9,22 @@ class PostsNew extends Component {
     return(
       <form onSubmit={handleSubmit(this.props.createPost)}>
         <h3>Create a new post</h3>
-        <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
+        <div className={setClassName(title)}>
           <label>Title</label>
           <input type="text" className="form-control" {...title} />
-          <div className="text-help">
-            {title.touched ? title.error : ''}
-          </div>
+          <div className="text-help">{showError(title)}</div>
         </div>
 
-        <div className={`form-group ${categories.touched && categories.invalid ? 'has-danger' : ''}`}>
+        <div className={setClassName(categories)}>
           <label>Categories</label>
           <input type="text" className="form-control" {...categories} />
-          <div className="text-help">
-            {categories.touched ? categories.error : ''}
-          </div>
+          <div className="text-help">{showError(categories)}</div>
         </div>
 
-        <div className={`form-group ${content.touched && content.invalid ? 'has-danger' : ''}`}>
+        <div className={setClassName(content)}>
           <label>Content</label>
           <textarea className="form-control" {...content} />
-          <div className="text-help">
-            {content.touched ? content.error : ''}
-          </div>
+          <div className="text-help">{showError(content)}</div>
         </div>
 
         <button type="submit" className="btn btn-primary">Submit</button>
@@ -38,6 +32,14 @@ class PostsNew extends Component {
       </form>
     );
   }
+}
+
+function setClassName(control) {
+  return `form-group ${control.touched && control.invalid ? 'has-danger' : ''}`;
+}
+
+function showError(control) {
+  return control.touched ? control.error : '';
 }
 
 function validate(values) {
