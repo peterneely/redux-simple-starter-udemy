@@ -3,10 +3,6 @@ import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
-const getErrorText = Symbol('getErrorText');
-const getValidationClass = Symbol('getValidationClass');
-const onSubmit = Symbol('onSubmit');
-
 class PostsNew extends Component {
 
   static contextTypes = {
@@ -16,24 +12,24 @@ class PostsNew extends Component {
   render() {
     const { fields: { title, categories, content }, handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this[onSubmit].bind(this))}>
+      <form onSubmit={handleSubmit(this._onSubmit.bind(this))}>
         <h3>Create a new post</h3>
-        <div className={`form-group ${this[getValidationClass](title)}`}>
+        <div className={`form-group ${this._getValidationClass(title)}`}>
           <label>Title</label>
           <input type="text" className="form-control" {...title} />
-          <div className="text-help">{this[getErrorText](title)}</div>
+          <div className="text-help">{this._getErrorText(title)}</div>
         </div>
 
-        <div className={`form-group ${this[getValidationClass](categories)}`}>
+        <div className={`form-group ${this._getValidationClass(categories)}`}>
           <label>Categories</label>
           <input type="text" className="form-control" {...categories} />
-          <div className="text-help">{this[getErrorText](categories)}</div>
+          <div className="text-help">{this._getErrorText(categories)}</div>
         </div>
 
-        <div className={`form-group ${this[getValidationClass](content)}`}>
+        <div className={`form-group ${this._getValidationClass(content)}`}>
           <label>Content</label>
           <textarea className="form-control" {...content} />
-          <div className="text-help">{this[getErrorText](content)}</div>
+          <div className="text-help">{this._getErrorText(content)}</div>
         </div>
 
         <button type="submit" className="btn btn-primary">Submit</button>
@@ -42,15 +38,15 @@ class PostsNew extends Component {
     );
   }
 
-  [getErrorText](control) {
+  _getErrorText(control) {
     return control.touched ? control.error : '';
   }
 
-  [getValidationClass](control) {
+  _getValidationClass(control) {
     return control.touched && control.invalid ? 'has-danger' : '';
   }
 
-  [onSubmit](props) {
+  _onSubmit(props) {
     this.props.createPost(props).then(() => { this.context.router.push('/') });
   }
 }
