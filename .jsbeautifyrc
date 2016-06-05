@@ -1,4 +1,3 @@
-
 {
   "html": {
     "allowed_file_extensions": ["htm", "html", "xhtml", "shtml", "xml", "svg"],
@@ -12,7 +11,8 @@
     "max_preserve_newlines": 0,
     "preserve_newlines": true,
     "unformatted": ["a", "span", "img", "code", "pre", "sub", "sup", "em", "strong", "b", "i", "u", "strike", "big",
-      "small", "pre", "h1", "h2", "h3", "h4", "h5", "h6"],
+      "small", "pre", "h1", "h2", "h3", "h4", "h5", "h6"
+    ],
     "wrap_line_length": 120
   },
   "css": {
